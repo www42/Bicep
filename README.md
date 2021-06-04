@@ -16,6 +16,12 @@
 
 * Bicep code is compiled into an ARM template. The main goal of Bicep is to write leaner, more readable code.
 
+<img src="img/bicep-to-azure.png" alt="Bicep to azure" width="400"/>
+
+
+foo
+
+<img src="img/bicep-to-json.png" alt="Bicep to json" width="400"/>
 
 
 ### How to learn Bicep?
