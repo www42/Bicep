@@ -1,0 +1,25 @@
+file='scenarios/VirtualNetwork/main.bicep'
+rgName='Test-RG'
+location='westeurope'
+
+# --- Subscription deployment ------------------
+az deployment sub create \
+    --template-file $file --location $location --parameters rgName=$rgName
+
+
+
+
+
+az deployment sub list --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp,duration:properties.duration}, &timestamp))" --output table
+
+
+# --- Tabula rasa resource group ------------------
+az deployment group create --name 'tabulaRasa' --resource-group $rgName --mode Complete --template-uri "https://raw.githubusercontent.com/www42/arm/master/templates/empty.json" --no-wait
+az deployment group list --resource-group $rgName --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp}, &timestamp))" --output table
+az resource list --resource-group $rgName --query "sort_by([].{name:name,Type:type,location:location},&Type)" --output table
+
+# --- Delete resource group ----------------
+az group delete --resource-group $rgName --yes --no-wait
+
+# --- Create resource group ----------------
+az group create --location $location --name $rgName
