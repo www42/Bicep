@@ -4,7 +4,6 @@
 [Terraform]: https://www.terraform.io
 [MS Learn]: https://docs.microsoft.com/en-us/learn/modules/deploy-azure-resources-by-using-bicep-templates
 
-<img src="img/bicep-logo-256.png" alt="Bicep logo" width="100"/>
 
 
 
@@ -29,3 +28,5 @@
 * [ARM template documentation][ARM template documentation]
 
 * [Build your first Bicep template - Module at Microsoft Learn][MS Learn]
+
+<img src="img/bicep-logo-256.png" alt="Bicep logo" width="100"/>
