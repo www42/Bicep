@@ -41,6 +41,24 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     }
   }
 }
+resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'WindowsFirewallOff'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.19'
+    autoUpgradeMinorVersion: true
+    settings: {
+      configuration: {
+        url: 'https://raw.githubusercontent.com/www42/Bicep/dsc/windowsServerDSC.zip'
+        script: 'windowsServerDSC.ps1'
+        function: 'windowsFirewallOff'
+      }
+    }
+  }
+}
 resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
   name: '${name}-Nic'
   location: location
