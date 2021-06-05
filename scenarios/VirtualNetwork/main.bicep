@@ -11,6 +11,6 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
   name: 'networkDeployment'
   scope: rg
   params: {
-    vnetName: 'VNet2'
+    name: 'VNet1'
   }
 }

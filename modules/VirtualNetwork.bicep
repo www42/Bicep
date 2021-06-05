@@ -1,62 +1,62 @@
 param location string = resourceGroup().location
 
-param vnetName                       string = 'VNet'
-param vnetAddressSpace               array  = [
-                                               '172.16.0.0/16'
-                                              ]
+param name                       string  = 'VNet'
+param addressSpace               array   = [
+                                            '172.16.0.0/16'
+                                           ]
 // subnet[0] Server
-param vnetServerSubnetName            string = 'ServerSubnet'
-param vnetServerSubnetAddressPrefix   string = '172.16.0.0/24'
+param serverSubnetName            string = 'ServerSubnet'
+param serverSubnetAddressPrefix   string = '172.16.0.0/24'
 // subnet[1] Database
-param vnetDatabaseSubnetName          string = 'DatabaseSubnet'
-param vnetDatabaseSubnetAddressPrefix string = '172.16.1.0/24'
+param databaseSubnetName          string = 'DatabaseSubnet'
+param databaseSubnetAddressPrefix string = '172.16.1.0/24'
 // subnet[2] Gateway
-param vnetGatewaySubnetName           string = 'GatewaySubnet'        // Do not change!
-param vnetGatewaySubnetAddressPrefix  string = '172.16.255.0/27'
+param gatewaySubnetName           string = 'GatewaySubnet'        // Do not change!
+param gatewaySubnetAddressPrefix  string = '172.16.255.0/27'
 // subnet[3] AzureBastion
-param vnetBastionSubnetName           string = 'AzureBastionSubnet'   // Do not change!
-param vnetBastionSubnetAddressPrefix  string = '172.16.255.32/27'
+param bastionSubnetName           string = 'AzureBastionSubnet'   // Do not change!
+param bastionSubnetAddressPrefix  string = '172.16.255.32/27'
 // subnet[4] AzureFirewall
-param vnetFirewallSubnetName          string = 'AzureFirewallSubnet' // Do not change!
-param vnetFirewallSubnetAddressPrefix string = '172.16.255.64/26'
+param firewallSubnetName          string = 'AzureFirewallSubnet' // Do not change!
+param firewallSubnetAddressPrefix string = '172.16.255.64/26'
 
 
 resource vnet 'Microsoft.Network/virtualNetworks@2020-11-01' = {
-  name: vnetName
+  name: name
   location: location
   properties: {
     addressSpace: {
-      addressPrefixes: vnetAddressSpace
+      addressPrefixes: addressSpace
     }
     subnets: [
       {
-        name: vnetServerSubnetName
+        name: serverSubnetName
         properties: {
-          addressPrefix: vnetServerSubnetAddressPrefix
+          addressPrefix: serverSubnetAddressPrefix
         }
       }
       {
-        name: vnetDatabaseSubnetName
+        name: databaseSubnetName
         properties: {
-          addressPrefix: vnetDatabaseSubnetAddressPrefix
+          addressPrefix: databaseSubnetAddressPrefix
         }
       }
       {
-        name: vnetGatewaySubnetName
+        name: gatewaySubnetName
         properties: {
-          addressPrefix: vnetGatewaySubnetAddressPrefix
+          addressPrefix: gatewaySubnetAddressPrefix
         }
       }
       {
-        name: vnetBastionSubnetName
+        name: bastionSubnetName
         properties: {
-          addressPrefix: vnetBastionSubnetAddressPrefix
+          addressPrefix: bastionSubnetAddressPrefix
         }
       }
       {
-        name: vnetFirewallSubnetName
+        name: firewallSubnetName
         properties: {
-          addressPrefix: vnetFirewallSubnetAddressPrefix
+          addressPrefix: firewallSubnetAddressPrefix
         }
       }
     ]
