@@ -1,5 +1,7 @@
-file='scenarios/VirtualNetwork/main.bicep'
-rgName='NoPrefix-RG'
+# file='scenarios/VirtualNetwork/main.bicep'
+file='scenarios/WindowsVM/main.bicep'
+
+rgName='VMTest-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------
