@@ -52,10 +52,9 @@ resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     autoUpgradeMinorVersion: true
     settings: {
       configuration: {
-        // url: 'https://raw.githubusercontent.com/www42/Bicep/dsc/windowsServerDSC.zip'
-        url: 'https://raw.githubusercontent.com/www42/Bicep/vmextension/dsc/windowsServerDSC.ps1'
+        url: 'https://raw.githubusercontent.com/www42/Bicep/vmextension/dsc/windowsServerDSC.zip'
         script: 'windowsServerDSC.ps1'
-        function: 'windowsFirewallOff'
+        function: 'windowsFirewallOff'  // only one function allowed
       }
     }
   }
