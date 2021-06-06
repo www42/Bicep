@@ -1,1 +1,0 @@
-zip foo.zip foo.ps1

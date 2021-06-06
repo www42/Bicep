@@ -1,0 +1,1 @@
+zip dsc/dscWindowsServer.zip dsc/dscWindowsServer.ps1

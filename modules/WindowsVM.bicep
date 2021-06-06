@@ -6,6 +6,9 @@ param size          string = 'Standard_DS2_v2'
 param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
+param dscUrl        string = 'https://raw.githubusercontent.com/www42/Bicep/vmextension/dsc/dscWindowsServer.zip'
+param dscScript     string = 'windowsServerDSC.ps1'
+param dscFunction   string = 'ieSecurityOff'
 
 resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
   name: name
@@ -52,9 +55,9 @@ resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     autoUpgradeMinorVersion: true
     settings: {
       configuration: {
-        url: 'https://raw.githubusercontent.com/www42/Bicep/vmextension/dsc/windowsServerDSC.zip'
-        script: 'windowsServerDSC.ps1'
-        function: 'windowsFirewallOff'  // only one function allowed
+        url: dscUrl
+        script: dscScript
+        function: dscFunction
       }
     }
   }
