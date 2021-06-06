@@ -6,7 +6,7 @@ param size          string = 'Standard_DS2_v2'
 param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
-param dscUrl        string = 'https://raw.githubusercontent.com/www42/Bicep/dsc/dscWindowsServer.zip'
+param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/dscWindowsServer.zip'
 param dscScript     string = 'dscWindowsServer.ps1'
 param dscFunction   string = 'ieSecurityOff'
 

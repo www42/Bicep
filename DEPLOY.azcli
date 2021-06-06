@@ -1,7 +1,7 @@
 # file='scenarios/VirtualNetwork/main.bicep'
 file='scenarios/WindowsVM/main.bicep'
 
-rgName='VmExtensionTest-RG'
+rgName='Project42-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------

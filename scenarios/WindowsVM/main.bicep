@@ -13,7 +13,7 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
   name: 'networkDeployment'
   scope: rg
   params: {
-    name: 'VNet1'
+    name: 'VNet42'
   }
 }
 
@@ -23,8 +23,10 @@ module vm1 '../../modules/WindowsVM.bicep' = {
   name: 'vm1Deployment'
   scope: rg
   params: {
-    name: 'VM1'
+    name: 'VM42'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
+    dscScript: 'dscWindowsServer.ps1'
+    dscFunction: 'popupTryWacOff'
   }
 }
