@@ -45,7 +45,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
   }
 }
 resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'WindowsFirewallOff'
+  name: 'WindowsServerSettings'
   parent: vm
   location: location
   properties: {
