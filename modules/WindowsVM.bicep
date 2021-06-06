@@ -73,7 +73,7 @@ resource vmScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     autoUpgradeMinorVersion: true
     settings: {
       fileUris: [
-        'https://github.com/www42/Bicep/raw/customscript/scripts/script.ps1'
+        'https://raw.githubusercontent.com/www42/Bicep/customscript/scripts/script1.ps1'
       ]
     commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File script1.ps1'
     }
