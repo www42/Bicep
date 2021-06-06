@@ -62,6 +62,23 @@ resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     }
   }
 }
+resource vmScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'WindowsServerScript'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: [
+        'https://github.com/www42/Bicep/raw/customscript/scripts/script.ps1'
+      ]
+    commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File script1.ps1'
+    }
+  }
+}
 resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
   name: '${name}-Nic'
   location: location
