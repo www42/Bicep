@@ -7,7 +7,7 @@ param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
 param dscUrl        string = 'https://raw.githubusercontent.com/www42/Bicep/vmextension/dsc/dscWindowsServer.zip'
-param dscScript     string = 'windowsServerDSC.ps1'
+param dscScript     string = 'dscWindowsServer.ps1'
 param dscFunction   string = 'ieSecurityOff'
 
 resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {

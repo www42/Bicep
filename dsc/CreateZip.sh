@@ -1,1 +1,1 @@
-zip dsc/dscWindowsServer.zip dsc/dscWindowsServer.ps1
+zip -j dsc/dscWindowsServer dsc/dscWindowsServer.ps1
