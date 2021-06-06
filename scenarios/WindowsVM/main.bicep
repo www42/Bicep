@@ -28,5 +28,6 @@ module vm1 '../../modules/WindowsVM.bicep' = {
     subnetId: vnet.outputs.serverSubnetId
     dscScript: 'dscWindowsServer.ps1'
     dscFunction: 'popupTryWacOff'
+    script: 'script1.ps1'
   }
 }

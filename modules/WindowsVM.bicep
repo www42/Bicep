@@ -9,6 +9,10 @@ param subnetId      string
 param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/dscWindowsServer.zip'
 param dscScript     string = 'dscWindowsServer.ps1'
 param dscFunction   string = 'ieSecurityOff'
+param script        string = 'script1.ps1'
+
+var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/customscript/scripts/${script}'
+var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${script}'
 
 resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
   name: name
@@ -73,9 +77,9 @@ resource vmScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     autoUpgradeMinorVersion: true
     settings: {
       fileUris: [
-        'https://raw.githubusercontent.com/www42/Bicep/customscript/scripts/script1.ps1'
+        fileUri
       ]
-    commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File script1.ps1'
+    commandToExecute: command
     }
   }
 }

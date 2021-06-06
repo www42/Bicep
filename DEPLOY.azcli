@@ -1,4 +1,3 @@
-# file='scenarios/VirtualNetwork/main.bicep'
 file='scenarios/WindowsVM/main.bicep'
 
 rgName='Project42-RG'

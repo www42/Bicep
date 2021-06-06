@@ -1,12 +1,29 @@
-## How to DSC
+## How to use the DSC extension for Azure virtual machines
 
-You can use DSC configurations 
-* in VM custom script extension
-* in Azure Automation Account
+<img src="../img/extension-logo.png" alt="DSC extension logo" width="80"/>
 
 
-| file     | description    |
-| -------- | -------------- |
-| foo.ps1  | configuration file<br />contains one or more DSC configurations |
-| foo.zip  | zipped configuration file for use in VM custom script extension<br />should contain only foo.ps1 (only one .ps1 file is allowed in VM custom script extension)  |
-| foo.mof  | compiled configuration<br />compilation is done by VM custom script extension or by Azure Automation Account  |
+| What's this?           |                   |
+| -----------------------| ----------------- |
+| `configuration foo {}` | DSC configuration written in PowerShell code   |
+| foo.ps1                | File containing one or more DSC configurations |
+| foo.zip                | Zip file containing one or more .ps1 files     |
+| foo.mof                | Compiled configuration<br />(Compilation is done by the extension handler automatically.) |
+
+In Bicep template create a resource specify these values accordingly
+
+```
+resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+...  
+    settings: {
+        configuration: {
+            url:      'https://github.com/.../foo.zip'
+            script:   'foo.ps1'
+            function: 'foo'
+        }
+    }
+```
+
+You can use only one DSC configuration (`function: 'foo'`) per VM.
+
+[Azure Automation Account](https://docs.microsoft.com/en-us/azure/automation/automation-dsc-overview) is another way to apply DSC configurations to virtual machines. 
