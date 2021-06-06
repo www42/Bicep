@@ -11,7 +11,7 @@ param dscScript     string = 'dscWindowsServer.ps1'
 param dscFunction   string = 'ieSecurityOff'
 param script        string = 'script1.ps1'
 
-var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/customscript/scripts/${script}'
+var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/master/scripts/${script}'
 var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${script}'
 
 resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
