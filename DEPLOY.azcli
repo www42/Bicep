@@ -1,6 +1,6 @@
 file='scenarios/WindowsVM/main.bicep'
 
-rgName='Project42-RG'
+rgName='Security-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------
