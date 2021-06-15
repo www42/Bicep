@@ -1,7 +1,7 @@
 # file='scenarios/WindowsVmRdp/main.bicep'
 file='scenarios/WindowsVmBastion/main.bicep'
 
-rgName='Compute-RG'
+rgName='Demo-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------

@@ -23,12 +23,12 @@ module vm1 '../../modules/WindowsVmNoPip.bicep' = {
   name: 'vm1Deployment'
   scope: rg
   params: {
-    name: 'VM1'
+    name: 'VM2'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
     dscScript: 'dscWindowsServer.ps1'
     dscFunction: 'popupTryWacOff'
-    customScript: 'script2.ps1'
+    customScript: 'script32.ps1'
   }
 }
 
