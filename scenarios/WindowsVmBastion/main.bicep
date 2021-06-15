@@ -13,21 +13,33 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
   name: 'networkDeployment'
   scope: rg
   params: {
-    name: 'VNet42'
+    name: 'VNet1'
   }
 }
 
 // Second: Virtual Machine(s)
 // --------------------------
-module vm1 '../../modules/WindowsVM.bicep' = {
+module vm1 '../../modules/WindowsVmNoPip.bicep' = {
   name: 'vm1Deployment'
   scope: rg
   params: {
-    name: 'VM42'
+    name: 'VM1'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
     dscScript: 'dscWindowsServer.ps1'
     dscFunction: 'popupTryWacOff'
-    script: 'script1.ps1'
+    customScript: 'script2.ps1'
   }
+}
+
+// Third: Bastion Host
+// -------------------
+module bastion '../../modules/BastionHost.bicep' = {
+  name: 'bastionDeployment'
+  scope: rg
+  params: {
+    bastionName: 'Bastion'
+    bastionSubnetId: vnet.outputs.bastionSubnetId
+  }
+  
 }
