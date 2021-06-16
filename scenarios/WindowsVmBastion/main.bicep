@@ -23,7 +23,7 @@ module vm1 '../../modules/WindowsVmNoPip.bicep' = {
   name: 'vm1Deployment'
   scope: rg
   params: {
-    name: 'VM2'
+    name: 'VM1'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
     dscScript: 'dscWindowsServer.ps1'
@@ -41,5 +41,4 @@ module bastion '../../modules/BastionHost.bicep' = {
     bastionName: 'Bastion'
     bastionSubnetId: vnet.outputs.bastionSubnetId
   }
-  
 }
