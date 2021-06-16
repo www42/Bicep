@@ -23,3 +23,9 @@ Invoke-WebRequest -Uri $source3 -OutFile $destination3
 # Download zoomit ver 4.50 (works with pen)
 $source4 = 'https://download69118.blob.core.windows.net/anon/ZoomIt.exe'
 $destination4 = 'C:\temp\ZoomIt.exe'
+Invoke-WebRequest -Uri $source4 -OutFile $destination4
+
+# Download CpuStress
+$source5 = 'https://download.sysinternals.com/files/CPUSTRES.zip'
+$destination5 = 'C:\temp\CPUSTRES.zip'
+Invoke-WebRequest -Uri $source5 -OutFile $destination5
