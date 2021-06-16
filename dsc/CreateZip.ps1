@@ -1,1 +1,1 @@
-Compress-Archive -Path dsc/dscWindowsServer.ps1 -DestinationPath dsc/dscWindowsServer.zip -Force
+Compress-Archive -Path dsc/dsc*.ps1 -DestinationPath dsc/all.zip -Force

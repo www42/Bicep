@@ -68,3 +68,32 @@ Configuration installRRAS {
       }
    }
 }
+Configuration 32 {
+   # This is the combination of
+   #     ieSecurityOff
+   #     popupTryWacOff
+
+   node ("localhost") {
+      Registry ieSecurityAdminOff {
+         Ensure    = "Present"
+         Key       = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
+         ValueName = "IsInstalled"
+         ValueType = "Dword"
+         ValueData = [int]0
+      }
+      Registry ieSecurityUserOff {
+         Ensure    = "Present"
+         Key       = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
+         ValueName = "IsInstalled"
+         ValueType = "Dword"
+         ValueData = [int]0
+      }
+      Registry popupTryWacOff {
+         Ensure    = "Present"
+         Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager"
+         ValueName = "DoNotPopWACConsoleAtSMLaunch"
+         ValueType = "Dword"
+         ValueData = [int]1
+      }
+   }
+}
