@@ -27,7 +27,7 @@ module vm1 '../../modules/WindowsVmNoPip.bicep' = {
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
     dscScript: 'dscWindowsServer.ps1'
-    dscFunction: '32'    // dscFunction == dsc configuration
+    dscFunction: 'config32'    // dscFunction == dsc configuration
     customScript: 'script32.ps1'
   }
 }

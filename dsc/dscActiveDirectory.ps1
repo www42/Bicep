@@ -1,3 +1,6 @@
+# Don't forget to update all.zip
+#              to commit all.zip to GitHub
+# -----------------------------------------
 Configuration ADDomain_NewForest {
     [CmdletBinding()]
     param (
