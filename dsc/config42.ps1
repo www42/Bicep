@@ -9,7 +9,7 @@
 #     popupTryWacOff
 #     ieSecurityOff
 
-Configuration config33 { 
+Configuration config42 { 
     Import-DSCResource -ModuleName ComputerManagementDsc
     node ("localhost") {
         TimeZone Berlin {
