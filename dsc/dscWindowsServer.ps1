@@ -5,6 +5,7 @@ Configuration config32 {
    # This is the combination of
    #     ieSecurityOff
    #     popupTryWacOff
+   #     DoNotOpenServerManagerAtLogon
 
    node ("localhost") {
       Registry ieSecurityAdminOff {
@@ -25,6 +26,24 @@ Configuration config32 {
          Ensure    = "Present"
          Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager"
          ValueName = "DoNotPopWACConsoleAtSMLaunch"
+         ValueType = "Dword"
+         ValueData = [int]1
+      }
+      Registry DoNotOpenServerManagerAtLogon {
+         Ensure    = "Present"
+         Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager"
+         ValueName = "DoNotOpenServerManagerAtLogon"
+         ValueType = "Dword"
+         ValueData = [int]1
+      }
+   }
+}
+configuration DoNotOpenServerManagerAtLogon {
+   node ("localhost"){
+      Registry DoNotOpenServerManagerAtLogon {
+         Ensure    = "Present"
+         Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager"
+         ValueName = "DoNotOpenServerManagerAtLogon"
          ValueType = "Dword"
          ValueData = [int]1
       }
