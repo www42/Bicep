@@ -1,4 +1,5 @@
-zip -j dsc/all dsc/dsc*.ps1
+# Create new zip file (overriding if exists)
+zip -j dsc/allConfigs.zip dsc/config*.ps1
 
-
-unzip -l dsc/all
+# List zip file
+unzip -l dsc/allConfigs.zip

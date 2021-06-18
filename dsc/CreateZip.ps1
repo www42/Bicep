@@ -1,1 +1,1 @@
-Compress-Archive -Path dsc/dsc*.ps1 -DestinationPath dsc/all.zip -Force
+Compress-Archive -Path dsc/config*.ps1 -DestinationPath dsc/allConfigs.zip -Force
