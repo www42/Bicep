@@ -1,8 +1,10 @@
-# Install DSC resource 'TimeZone' and more
+# Install NuGet in order to install modules
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
+# Install more DSC resources e.g. 'TimeZone'
 Install-Module -Name ComputerManagementDsc -Force
 
 # Install Module Az
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module -Name az -Force
 
 # Create temp folder
