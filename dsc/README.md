@@ -3,27 +3,37 @@
 <img src="../img/extension-logo.png" alt="DSC extension logo" width="80"/>
 
 
-| What's this?           |                   |
-| -----------------------| ----------------- |
-| `configuration foo {}` | DSC configuration written in PowerShell code   |
-| foo.ps1                | File containing one or more DSC configurations |
-| foo.zip                | Zip file containing one or more .ps1 files     |
-| foo.mof                | Compiled configuration<br />(Compilation is done by the extension handler automatically.) |
+| File                            | What's inside?                                   |
+| --------------------------------| ------------------------------------------------ |
+| THE_WORLDS_BEST_DSC_CONFIGS.ps1 | The World's best DSC configurations (What else?) |
+| config42.ps1                    | One single DSC configuration                     |
+| allConfigs.zip                  | config`??`.ps1                                   |
+| createZip.sh                    | Helper script to create the zip                  |
 
-In Bicep template create a resource specify these values accordingly
+
+In Bicep create a resource in this way:
 
 ```
 resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-...  
+  name: 'dsc'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.83'
+    autoUpgradeMinorVersion: true
     settings: {
-        configuration: {
-            url:      'https://github.com/.../foo.zip'
-            script:   'foo.ps1'
-            function: 'foo'
-        }
+      configuration: {
+        url:      'https://github.com/.../allConfigs.zip'
+        script:   'config42.ps1'
+        function: 'config42'
+      }
     }
+  }
+}
 ```
 
-You can use only one DSC configuration (`function: 'foo'`) per VM.
+You can use only one DSC configuration (`function: 'config42'`) per VM.
 
 [Azure Automation Account](https://docs.microsoft.com/en-us/azure/automation/automation-dsc-overview) is another way to apply DSC configurations to virtual machines. 

@@ -6,13 +6,13 @@ param size          string = 'Standard_DS2_v2'
 param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
-param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/all.zip'
-param dscScript     string = 'dscWindowsServer.ps1'
-param dscFunction   string = 'ieSecurityOff'
-param customScript  string = 'script1.ps1'
+param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/allConfigs.zip'
+param dscScript     string = 'config32.ps1'
+param customScript  string = 'script32.ps1'
 
 var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/master/scripts/${customScript}'
 var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${customScript}'
+var dscFunction = split(dscScript,'.')[0]
 
 resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
   name: name
@@ -49,7 +49,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
   }
 }
 resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'WindowsServerSettings'
+  name: 'dsc'
   parent: vm
   location: location
   properties: {
@@ -67,7 +67,7 @@ resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
   }
 }
 resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'WindowsServerScript'
+  name: 'customScript'
   parent: vm
   location: location
   properties: {
