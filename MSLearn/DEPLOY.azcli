@@ -1,0 +1,54 @@
+# Exercise 1
+# ----------
+resourceGroupName="learndeploymentscript_exercise_1" # Don't change! It's hard-coded inside the template.
+az group create --location westeurope --name $resourceGroupName
+
+# Deploy the template to Azure
+templateFile="exercise1.main.bicep"
+today=$(date +"%d-%b-%Y")
+deploymentName="deploymentscript-"$today
+
+az deployment group create \
+    --resource-group $resourceGroupName \
+    --name $deploymentName \
+    --template-file $templateFile
+
+az resource list --resource-group $resourceGroupName --query "[].{name:name,Type:type}" --output table
+
+
+# Review the result of your template
+uri=$(az deployment group show --resource-group $resourceGroupName --name $deploymentName --query 'properties.outputs.fileUri.value' --output tsv)
+echo $uri
+curl $uri
+
+az deployment-scripts show-log --resource-group $resourceGroupName --name CopyConfigScript
+
+# Clean up
+az group delete --name $resourceGroupName --yes --no-wait
+
+
+# Exercise 2
+# ----------
+resourceGroupName="learndeploymentscript_exercise_2"
+az group create --location westeurope --name $resourceGroupName
+
+# Deploy the template to Azure
+templateFile="exercise2.main.bicep"
+templateParameterFile="azuredeploy.parameters.json"
+today=$(date +"%d-%b-%Y")
+deploymentName="deploymentscript-"$today
+
+az deployment group create \
+    --resource-group $resourceGroupName \
+    --name $deploymentName \
+    --template-file $templateFile \
+    --parameters $templateParameterFile
+
+# Review the result of your template
+az resource list --resource-group $resourceGroupName --query "[].{name:name,Type:type}" --output table
+
+storageAccountName=$(az deployment group show --resource-group $resourceGroupName --name $deploymentName --query 'properties.outputs.storageAccountName.value' --output tsv)
+az storage blob list --account-name $storageAccountName --container-name config --query '[].name'
+
+# Clean up
+az group delete --name $resourceGroupName --yes --no-wait
