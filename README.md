@@ -5,6 +5,12 @@
 [MS Learn]: https://docs.microsoft.com/en-us/learn/modules/deploy-azure-resources-by-using-bicep-templates
 
 
+## Scenarios
+
+| Scenario                | Template |
+| ----------------------- | -------- |
+| Windows VM RDP          | [README.md](scenarios/WindowsVmBastion/README.md) |
+| Windows VM Bastion Host | [README.md](scenarios/WindowsVmBastion) |
 
 
 ### What is Bicep?
