@@ -31,32 +31,13 @@ module vm1 '../../modules/WindowsVm.bicep' = {
   }
 }
 
-// Create Public IP
-module vm1Pip '../../modules/publicIp.bicep' = {
-  name: 'vm1PipDeployment'
-  scope: rg
-  params: {
-    name: 'VM1-Pip'
-  }
-}
-
-// Update VM Nic
-module updateVm1Nic '../../modules/updateNic.bicep' = {
-  name: 'updateVm1Nic'
-  scope: rg
-  params: {
-    nic: vm1.outputs.vmNic
-    pipId: vm1Pip.outputs.pipId
-  }
-}
-
 // Third: Bastion Host
 // -------------------
-// module bastion '../../modules/BastionHost.bicep' = {
-  // name: 'bastionDeployment'
-  // scope: rg
-  // params: {
-    // bastionName: 'Bastion'
-    // bastionSubnetId: vnet.outputs.bastionSubnetId
-  // }
-// }
+module bastion '../../modules/BastionHost.bicep' = {
+  name: 'bastionDeployment'
+  scope: rg
+  params: {
+    bastionName: 'Bastion'
+    bastionSubnetId: vnet.outputs.bastionSubnetId
+  }
+}

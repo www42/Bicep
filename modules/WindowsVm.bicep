@@ -114,3 +114,6 @@ resource vmNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
 
 output vmId string = vm.id
 output vmNic object = vmNic
+output vmNicName string = vmNic.name
+output vmNsg object = vmNsg
+output vmNsgName string = vmNsg.name

@@ -1,8 +1,9 @@
 param nic object
+param nicName string
 param pipId string
 
 resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
-  name: nic.name
+  name: nicName
   location: nic.location
   properties: {
     ipConfigurations: [
