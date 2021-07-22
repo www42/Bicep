@@ -48,24 +48,6 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     }
   }
 }
-resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'dsc'
-  parent: vm
-  location: location
-  properties: {
-    publisher: 'Microsoft.Powershell'
-    type: 'DSC'
-    typeHandlerVersion: '2.83'
-    autoUpgradeMinorVersion: true
-    settings: {
-      configuration: {
-        url: dscUrl
-        script: dscScript
-        function: dscFunction
-      }
-    }
-  }
-}
 resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
   name: 'customScript'
   parent: vm
@@ -80,6 +62,27 @@ resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01
         fileUri
       ]
     commandToExecute: command
+    }
+  }
+}
+resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'dsc'
+  dependsOn: [
+    vmCustomScript
+  ]
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.83'
+    autoUpgradeMinorVersion: true
+    settings: {
+      configuration: {
+        url: dscUrl
+        script: dscScript
+        function: dscFunction
+      }
     }
   }
 }
