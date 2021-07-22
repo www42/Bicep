@@ -7,10 +7,8 @@
 
 ## Scenarios
 
-| Scenario                | Template |
-| ----------------------- | -------- |
-| Windows VM RDP          | [README.md](scenarios/WindowsVmBastion/README.md) |
-| Windows VM Bastion Host | [README.md](scenarios/WindowsVmBastion) |
+[Windows VM RDP](scenarios/WindowsVmBastion/) 
+[Windows VM Bastion Host](scenarios/WindowsVmBastion) 
 
 
 ### What is Bicep?
