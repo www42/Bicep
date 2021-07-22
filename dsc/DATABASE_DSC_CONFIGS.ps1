@@ -1,9 +1,26 @@
 # This file is the place where all DSC configs are collected.
-# Grab the configs you need, and copy them to a new file 'config123.ps1'
+# Grab all resources you need e.g.
+#
+#        Registry foo {}
+#        Registry bar {}
+#        TimeZone Berlin {}
+#
+# and merge them into a new single(!) configuration
+#
+#        Configuration myconfig {
+#           node ("localhost") {
+#              Registry foo {}
+#              Registry bar {}
+#              TimeZone Berlin {}
+#           }
+#        }
+#        
+# Save this as 'config123.ps1'
+#
 # 'config123.ps1' will be included in 'allConfigs.zip' by running 'createZip.sh'
 # ------------------------------------------------------------------------------
 Configuration SetTimeZone {
-   Import-DSCResource -ModuleName ComputerManagementDsc
+   Import-DSCResource -ModuleName ComputerManagementDsc  # Be sure this module has been made available by custom script
    node ("localhost") {
        TimeZone Berlin {
            IsSingleInstance = "Yes"

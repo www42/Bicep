@@ -26,8 +26,7 @@ module vm1 '../../modules/WindowsVmPip.bicep' = {
     name: 'VM1'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
-    dscScript: 'dscWindowsServer.ps1'
-    dscFunction: 'popupTryWacOff'
-    customScript: 'script1.ps1'
+    dscScript: 'config42.ps1'
+    customScript: 'script42.ps1'
   }
 }
