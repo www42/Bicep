@@ -8,6 +8,7 @@
 ## Scenarios
 
 [Windows VM RDP](scenarios/WindowsVmBastion/) 
+
 [Windows VM Bastion Host](scenarios/WindowsVmBastion) 
 
 
