@@ -11,8 +11,10 @@
 
 [Windows VM Bastion Host](scenarios/WindowsVmBastion) 
 
+<br>
+<br>
 
-### What is Bicep?
+## What is Bicep?
 
 * Bicep is a declarative language by Microsoft for describing and deploying Azure resources.
 
