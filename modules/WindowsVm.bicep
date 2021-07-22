@@ -1,4 +1,4 @@
-// Virtual Machine
+// Virtual Machine, no public IP, NSG with default rules only
 param location string = resourceGroup().location
 
 param name          string = 'VM'
@@ -7,8 +7,8 @@ param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
 param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/allConfigs.zip'
-param dscScript     string = 'config32.ps1'
-param customScript  string = 'script32.ps1'
+param dscScript     string = 'config42.ps1'
+param customScript  string = 'script42.ps1'
 
 var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/master/scripts/${customScript}'
 var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${customScript}'
@@ -113,3 +113,4 @@ resource vmNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
 }
 
 output vmId string = vm.id
+output vmNic object = vmNic

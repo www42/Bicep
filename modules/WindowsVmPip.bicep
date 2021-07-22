@@ -98,27 +98,12 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
           subnet: {
             id: subnetId
           }
-          publicIPAddress: {
-            id: vmPip.id
-          }
         }
       }
     ]
     networkSecurityGroup: {
       id: vmNsg.id
     }
-  }
-}
-resource vmPip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
-  name: '${name}-Pip'
-  location: location
-  sku: {
-    name: 'Basic'
-    tier: 'Regional'
-  }
-  properties: {
-    publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: 'Dynamic'
   }
 }
 resource vmNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
