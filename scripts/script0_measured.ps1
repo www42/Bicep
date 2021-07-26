@@ -1,0 +1,1 @@
+Measure-Command -Expression {Write-Output 'Hello World!'}
