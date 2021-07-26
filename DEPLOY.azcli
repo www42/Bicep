@@ -5,8 +5,9 @@ file='scenarios/WindowsVmBastion/main.bicep'
 rgName='Demo-RG'
 location='westeurope'
 
-# deploymentName="$file-$(date +"%Y-%m-%d_%H-%M-%S")"
-deploymentName=$file
+deploymentName="main-$(date +"%Y-%m-%d_%H-%M-%S")"
+# deploymentName="main"
+
 
 
 # --- Subscription deployment ------------------

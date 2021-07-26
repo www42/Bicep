@@ -7,8 +7,8 @@ param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
 param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/allConfigs.zip'
-param dscScript     string = 'config42.ps1'
-param customScript  string = 'script42.ps1'
+param dscScript     string = 'config32.ps1'
+param customScript  string = 'script0.ps1'
 
 var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/master/scripts/${customScript}'
 var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${customScript}'
@@ -48,41 +48,6 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     }
   }
 }
-resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'dsc'
-  parent: vm
-  location: location
-  properties: {
-    publisher: 'Microsoft.Powershell'
-    type: 'DSC'
-    typeHandlerVersion: '2.83'
-    autoUpgradeMinorVersion: true
-    settings: {
-      configuration: {
-        url: dscUrl
-        script: dscScript
-        function: dscFunction
-      }
-    }
-  }
-}
-resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'customScript'
-  parent: vm
-  location: location
-  properties: {
-    publisher: 'Microsoft.Compute'
-    type: 'CustomScriptExtension'
-    typeHandlerVersion: '1.10'
-    autoUpgradeMinorVersion: true
-    settings: {
-      fileUris: [
-        fileUri
-      ]
-    commandToExecute: command
-    }
-  }
-}
 resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
   name: '${name}-Nic'
   location: location
@@ -109,6 +74,44 @@ resource vmNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
   properties: {
     securityRules: [
     ]
+  }
+}
+resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'customScript'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: [
+        fileUri
+      ]
+    commandToExecute: command
+    }
+  }
+}
+resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'dsc'
+  parent: vm
+  dependsOn: [
+    vmCustomScript
+  ]
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.83'
+    autoUpgradeMinorVersion: true
+    settings: {
+      configuration: {
+        url: dscUrl
+        script: dscScript
+        function: dscFunction
+      }
+    }
   }
 }
 
