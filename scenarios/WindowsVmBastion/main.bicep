@@ -19,15 +19,15 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
 
 // Second: Virtual Machine(s)
 // --------------------------
-module vm1 '../../modules/WindowsVmNoPip.bicep' = {
+module vm1 '../../modules/WindowsVm.bicep' = {
   name: 'vm1Deployment'
   scope: rg
   params: {
     name: 'VM1'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
-    dscScript:    'config42.ps1'
-    customScript: 'script42.ps1'
+    dscScript:    'config32.ps1'
+    customScript: 'script0.ps1'
   }
 }
 

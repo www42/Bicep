@@ -1,4 +1,4 @@
-// Virtual Machine
+// Virtual Machine, no public IP, NSG with default rules only
 param location string = resourceGroup().location
 
 param name          string = 'VM'
@@ -7,8 +7,8 @@ param adminUserName string = 'Student'
 param adminPassword string = 'Pa55w.rd1234'
 param subnetId      string
 param dscUrl        string = 'https://github.com/www42/Bicep/raw/master/dsc/allConfigs.zip'
-param dscScript     string = 'config32.ps1'
-param customScript  string = 'script32.ps1'
+param dscScript     string = 'config42.ps1'
+param customScript  string = 'script42.ps1'
 
 var fileUri = 'https://raw.githubusercontent.com/www42/Bicep/master/scripts/${customScript}'
 var command = 'powershell.exe -ExecutionPolicy Unrestricted -File ${customScript}'
@@ -48,6 +48,24 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     }
   }
 }
+resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: 'dsc'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.83'
+    autoUpgradeMinorVersion: true
+    settings: {
+      configuration: {
+        url: dscUrl
+        script: dscScript
+        function: dscFunction
+      }
+    }
+  }
+}
 resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
   name: 'customScript'
   parent: vm
@@ -65,27 +83,6 @@ resource vmCustomScript 'Microsoft.Compute/virtualMachines/extensions@2021-03-01
     }
   }
 }
-resource vmDsc 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
-  name: 'dsc'
-  dependsOn: [
-    vmCustomScript
-  ]
-  parent: vm
-  location: location
-  properties: {
-    publisher: 'Microsoft.Powershell'
-    type: 'DSC'
-    typeHandlerVersion: '2.83'
-    autoUpgradeMinorVersion: true
-    settings: {
-      configuration: {
-        url: dscUrl
-        script: dscScript
-        function: dscFunction
-      }
-    }
-  }
-}
 resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
   name: '${name}-Nic'
   location: location
@@ -98,9 +95,6 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
           subnet: {
             id: subnetId
           }
-          publicIPAddress: {
-            id: vmPip.id
-          }
         }
       }
     ]
@@ -109,39 +103,17 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2020-11-01' = {
     }
   }
 }
-resource vmPip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
-  name: '${name}-Pip'
-  location: location
-  sku: {
-    name: 'Basic'
-    tier: 'Regional'
-  }
-  properties: {
-    publicIPAddressVersion: 'IPv4'
-    publicIPAllocationMethod: 'Dynamic'
-  }
-}
 resource vmNsg 'Microsoft.Network/networkSecurityGroups@2020-11-01' = {
   name: '${name}-NSG'
   location: location
   properties: {
     securityRules: [
-      {
-        name: 'Allow_RemoteDesktop'
-        properties: {
-          description: 'Allow Remote Desktop Protocol port TCP/3389'
-          direction: 'Inbound'
-          priority: 100
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '3389'
-          protocol: 'Tcp'
-          access: 'Allow'
-        }
-      }
     ]
   }
 }
 
 output vmId string = vm.id
+output vmNic object = vmNic
+output vmNicName string = vmNic.name
+output vmNsg object = vmNsg
+output vmNsgName string = vmNsg.name

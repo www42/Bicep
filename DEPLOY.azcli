@@ -1,19 +1,24 @@
 # --- Scenario ---------------------------------
-file='scenarios/WindowsVmRdp/main.bicep'
-# file='scenarios/WindowsVmBastion/main.bicep'
+# file='scenarios/WindowsVmRdp/main.bicep'
+file='scenarios/WindowsVmBastion/main.bicep'
 
 rgName='Demo-RG'
 location='westeurope'
 
+# deploymentName="$file-$(date +"%Y-%m-%d_%H-%M-%S")"
+deploymentName=$file
+
+
 # --- Subscription deployment ------------------
-az deployment sub create --name 'main.bicep' \
-    --template-file $file --location $location --parameters rgName=$rgName
+az deployment sub create \
+    --name $deploymentName \
+    --template-file $file \
+    --location $location \
+    --parameters rgName=$rgName
 
 
-
-
-
-az deployment sub list --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp,duration:properties.duration}, &timestamp))" --output table
+az deployment sub list \
+    --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp,duration:properties.duration}, &timestamp))" --output table
 
 
 # --- Tabula rasa resource group ---------------
