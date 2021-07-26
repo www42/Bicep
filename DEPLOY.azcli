@@ -1,6 +1,6 @@
 # --- Scenario ---------------------------------
-# file='scenarios/WindowsVmRdp/main.bicep'
-file='scenarios/WindowsVmBastion/main.bicep'
+file='scenarios/WindowsVmRdp/main.bicep'
+# file='scenarios/WindowsVmBastion/main.bicep'
 
 rgName='Demo-RG'
 location='westeurope'
