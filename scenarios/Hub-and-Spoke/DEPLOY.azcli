@@ -1,22 +1,20 @@
 # --- Scenario ---------------------------------
-# scenario='WindowsVmRdp'
-# scenario='WindowsVmBastion'
 scenario='Hub-and-Spoke'
-
-file="scenarios/$scenario/main.bicep"
-
+file='main.bicep'
 rgName='Hub-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------
 deploymentName="Scenario-$scenario"
-'9175208c-1555-48b5-ad56-2d688b3eab38'
 datestring=$(date +"%Y-%m-%d-%H-%M-%S")
+
+allPermissionsUserObjectId='9175208c-1555-48b5-ad56-2d688b3eab38'
+
 az deployment sub create \
     --name $deploymentName \
     --template-file $file \
     --location $location \
-    --parameters rgName=$rgName datestring=$datestring
+    --parameters rgName=$rgName datestring=$datestring allPermissionsUserObjectId=$allPermissionsUserObjectId
 
 
 az deployment sub list \

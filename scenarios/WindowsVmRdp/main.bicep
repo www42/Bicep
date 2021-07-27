@@ -32,7 +32,7 @@ module vm1 '../../modules/WindowsVm.bicep' = {
 }
 
 // Create Public IP
-module vm1Pip '../../modules/publicIp.bicep' = {
+module vm1Pip '../../modules/PublicIp.bicep' = {
   name: 'vm1PipDeployment'
   scope: rg
   params: {
@@ -41,7 +41,7 @@ module vm1Pip '../../modules/publicIp.bicep' = {
 }
 
 // Update VM Nic
-module updateVm1Nic '../../modules/updateNic.bicep' = {
+module updateVm1Nic '../../modules/update_Nic.bicep' = {
   name: 'updateVm1Nic'
   scope: rg
   params: {
@@ -52,7 +52,7 @@ module updateVm1Nic '../../modules/updateNic.bicep' = {
 }
 
 // Update VM NSG
-module updateVm1Nsg '../../modules/updateNsg.bicep' = {
+module updateVm1Nsg '../../modules/update_Nsg.bicep' = {
   name: 'updateVm1Nsg'
   scope: rg
   params: {
