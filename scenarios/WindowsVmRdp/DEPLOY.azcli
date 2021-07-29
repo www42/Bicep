@@ -1,8 +1,8 @@
 # --- Scenario ---------------------------------
-scenario='WindowsVmBastion'
+scenario='WindowsVmRdp'
 file="main.bicep"
 
-rgName='Monitoring-RG'
+rgName='AFT-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------
