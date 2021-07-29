@@ -1,11 +1,8 @@
 # --- Scenario ---------------------------------
-# scenario='WindowsVmRdp'
-# scenario='WindowsVmBastion'
-scenario='Hub-and-Spoke'
+scenario='WindowsVmBastion'
+file="main.bicep"
 
-file="scenarios/$scenario/main.bicep"
-
-rgName='Hub-RG'
+rgName='Monitoring-RG'
 location='westeurope'
 
 # --- Subscription deployment ------------------
@@ -36,15 +33,6 @@ az group list -o table
 
 
 # --- Login ------------------------------------
-
-# MSDN-Plattformen  Paul@az.training
-# Subscription ID:  ffcb38a5-8428-40c4-98b7-77013eac7ec5
-# Tenant ID:        819ebf55-0973-4703-b006-581a48f25961
-
-# Azure Pass        Paul@adatum5925.onmicrosoft.com
-# Subscription ID:  d96537c2-d10f-4d9a-b8a1-c6c92e3ca256
-# Tenant ID:        75f02901-7e18-4dda-b95d-a3444bfe332b
-
 az logout
 az login
 
