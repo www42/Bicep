@@ -1,0 +1,6 @@
+
+name: helloWorld
+on:
+  push:
+    branches:
+      - master
