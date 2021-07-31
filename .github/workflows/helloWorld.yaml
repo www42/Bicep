@@ -1,6 +1,12 @@
-
 name: helloWorld
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: My first job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run a one line script
+        run:  echo "Hello World!"
