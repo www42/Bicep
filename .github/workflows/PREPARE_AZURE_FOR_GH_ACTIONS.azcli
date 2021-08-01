@@ -1,0 +1,61 @@
+# ---Choose GitHub (GH) repo --------------------------------------------
+gh auth status
+gh repo list --limit 50
+repo='www42/Bicep'
+
+
+# ---Login to Azure -----------------------------------------------------
+subscriptionId=$(az account show --query "id" --output tsv)
+tenantId=$(az account show --query "homeTenantId" --output tsv)
+
+
+# ---Create Service Principal (SP) and store it in a GH secret ----------
+spName='GitHubActions'
+az ad sp create-for-rbac --name $spName \
+                         --role Contributor \
+                         --scopes /subscriptions/$subscriptionId \
+                         --sdk-auth \
+| gh secret set AZURE_CREDENTIALS --repo $repo
+
+gh secret list --repo $repo
+
+# For graphical step-by-step in GitHub portal see 
+# https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md
+
+
+# From within workflow file the secret is referred by ${{ secrets.AZURE_CREDENTIALS }}
+
+
+
+# List SP
+az ad sp list --all --query "[?appDisplayName=='$spName']"
+az ad sp list --all --query "[?appDisplayName=='$spName'].oauth2Permissions"
+
+# Get objectId of SP
+spObjectId=$(az ad sp list --all --query "[?appDisplayName=='$spName'].[objectId]" --output tsv)
+
+# List all my Service Principals
+az ad sp list --all --query "sort_by([?appOwnerTenantId=='$tenantId'].{appDisplayName:appDisplayName,appId:appId,publisherName:publisherName}, &appDisplayName)" --output table
+
+# List all role assignments within subscription
+az role assignment list --all --query "sort_by([].{principalName:principalName,roleDefinitionName:roleDefinitionName,scope:scope}, &principalName)" --output table
+
+# List role assignments of SP
+az role assignment list --assignee $spObjectId --all --query "[].{principalName:principalName,roleDefinitionName:roleDefinitionName,scope:scope}" --output table
+
+# Remove Contributor role assignment of SP
+az role assignment delete --assignee $spObjectId --role Contributor --scope /subscriptions/$subscriptionId
+
+# Create/remove more granular role assignment
+az role assignment create --assignee $spObjectId --role Reader --scope /subscriptions/$subscriptionId/resourceGroups/GithubAction-RG
+az role assignment delete --assignee $spObjectId --role Reader --scope /subscriptions/$subscriptionId/resourceGroups/GithubAction-RG
+
+# Remove SP (and it's role assignments)
+az ad sp delete --id $spObjectId --verbose
+
+
+
+
+# ---Clean up -----------------------------------------------------------
+az ad sp delete --id $(az ad sp list --all --query "[?appDisplayName=='$spName'].[objectId]" --output tsv) --verbose
+gh secret remove AZURE_CREDENTIALS --repo $repo

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  myFirstJob:
     name: My first job
     runs-on: ubuntu-latest
 
