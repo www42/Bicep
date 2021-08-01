@@ -1,0 +1,16 @@
+name: Deploy Bicep template
+on: workflow_dispatch
+
+jobs:
+  bicepTemplateDeployment:
+    name: Deploy Bicep template
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
