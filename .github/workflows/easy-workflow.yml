@@ -1,4 +1,4 @@
-name: Deploy Azure storage account
+name: Easy Workflow
 on: workflow_dispatch
 
 jobs:
