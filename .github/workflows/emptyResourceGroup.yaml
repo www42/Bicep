@@ -1,0 +1,26 @@
+name: Empty Resource Group
+on: workflow_dispatch
+
+jobs:
+  tabulaRasa:
+    name: tabula rasa
+    runs-on: ubuntu-latest
+    env:
+      resourceGroupName: rg-demo
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy empty ARM Template in complete mode
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resourceGroupName }}
+          template: templates/empty.json
+          deploymentMode: Complete
