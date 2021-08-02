@@ -8,7 +8,7 @@ jobs:
     env:
       region: westeurope
       resourceGroupName: rg-demo
-      storageAccountNamePrefix: st-
+      storageAccountNamePrefix: storage
 
     steps:
       - name: Checkout
@@ -23,7 +23,8 @@ jobs:
         run: |
           until [ $available ]
           do
-            name="${{ env.storageAccountNamePrefix }}$RANDOM"
+            rand=$((1000 + $RANDOM % 8999))
+            name="${{ env.storageAccountNamePrefix }}$rand"
             available=$(az storage account check-name --name $name --query "nameAvailable")
           done
           echo "storageAccountName=$name" >> $GITHUB_ENV
