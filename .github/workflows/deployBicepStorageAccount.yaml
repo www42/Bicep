@@ -1,0 +1,48 @@
+name: Deploy Storage Account
+on: workflow_dispatch
+
+jobs:
+  createStorageAccount:
+    name: Create Storage Account
+    runs-on: ubuntu-latest
+    env:
+      resourceGroupName: rg-demo
+      storageAccountNamePrefix: st-
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Find storage account name
+        run: |
+          until [ $available ]
+          do
+            name="${{ env.storageAccountNamePrefix }}$RANDOM"
+            available=$(az storage account check-name --name $name --query "nameAvailable")
+          done
+          echo "storageAccountName=$name" >> $GITHUB_ENV
+          echo "storageAccountName: $name"
+
+      - name: Create resource group
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            #!/bin/bash
+            if $(az group exists --name ${{ env.resourceGroupName }}) ; then
+              echo "Resource group already exists, skipping creation..."
+            else
+              az group create --name ${{ env.resourceGroupName }} --location ${{ env.region }}
+            fi
+
+      - name: Deploy Bicep Template
+        uses: Azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resourceGroupName }}
+          template: templates/storageAccount.bicep
+          parameters: storageAccountName=${{ env.storageAccountName }}
