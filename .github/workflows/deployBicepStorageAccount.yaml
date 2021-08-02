@@ -1,4 +1,4 @@
-name: Deploy Storage Account
+name: Deploy Azure Storage Account
 on: workflow_dispatch
 
 jobs:
