@@ -10,7 +10,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 // First: Virtual Network
 // ----------------------
-module vnet '../../modules/VirtualNetwork.bicep' = {
+module vnet '../../templates/virtualNetwork.bicep' = {
   name: 'networkDeployment-${datestring}'
   scope: rg
   params: {
@@ -20,7 +20,7 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
 
 // Second: Virtual Machine(s)
 // --------------------------
-module vm1 '../../modules/WindowsVm.bicep' = {
+module vm1 '../../templates/windowsVm.bicep' = {
   name: 'vm1Deployment-${datestring}'
   scope: rg
   params: {
@@ -33,7 +33,7 @@ module vm1 '../../modules/WindowsVm.bicep' = {
 }
 
 // Create Public IP
-module vm1Pip '../../modules/PublicIp.bicep' = {
+module vm1Pip '../../templates/publicIp.bicep' = {
   name: 'vm1PipDeployment-${datestring}'
   scope: rg
   params: {
@@ -42,7 +42,7 @@ module vm1Pip '../../modules/PublicIp.bicep' = {
 }
 
 // Update VM Nic
-module updateVm1Nic '../../modules/update_Nic.bicep' = {
+module updateVm1Nic '../../templates/update_Nic.bicep' = {
   name: 'updateVm1Nic-${datestring}'
   scope: rg
   params: {
@@ -53,7 +53,7 @@ module updateVm1Nic '../../modules/update_Nic.bicep' = {
 }
 
 // Update VM NSG
-module updateVm1Nsg '../../modules/update_Nsg.bicep' = {
+module updateVm1Nsg '../../templates/update_Nsg.bicep' = {
   name: 'updateVm1Nsg-${datestring}'
   scope: rg
   params: {

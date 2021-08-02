@@ -1,0 +1,49 @@
+name: Deploy Azure storage account
+on: workflow_dispatch
+
+jobs:
+  Deploy-storage-account-ARM:
+    name: Deploy Azure storage account using ARM template
+    runs-on: ubuntu-latest
+    env:
+      storageAccountNamePrefix: mystorage
+      resourceGroupName: foo-RG
+      location: westeurope
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Check storage account name availability
+        run: |
+          until [ $available ]
+          do
+            name="${{ env.storageAccountNamePrefix }}$RANDOM"
+            available=$(az storage account check-name --name $name --query "nameAvailable")
+          done
+          echo "storageAccountName=$name" >> $GITHUB_ENV
+          echo "storageAccountName: $name"
+
+      - name: Checkout ARM template from repo
+        uses: actions/checkout@v2
+
+      - name: Create resource group if missing
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            #!/bin/bash
+            if $(az group exists --name ${{ env.resourceGroupName }}) ; then
+              echo "Resource group already exists, skipping creation..."
+            else
+              az group create --name ${{ env.resourceGroupName }} --location ${{ env.location }}
+            fi
+
+      - name: Deploy ARM template
+        uses: azure/arm-deploy@v1
+        with:
+          template: templates/storageaccount.json
+          scope: resourcegroup
+          resourceGroupName: ${{ env.resourceGroupName }}
+          parameters: saName=${{ env.storageAccountName }}          

@@ -10,7 +10,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 // First: Virtual Network
 // ----------------------
-module vnet '../../modules/VirtualNetwork.bicep' = {
+module vnet '../../templates/virtualNetwork.bicep' = {
   name: 'networkDeployment-${datestring}'
   scope: rg
   params: {
@@ -20,7 +20,7 @@ module vnet '../../modules/VirtualNetwork.bicep' = {
 
 // Second: Virtual Machine(s)
 // --------------------------
-module vm1 '../../modules/WindowsVm.bicep' = {
+module vm1 '../../templates/windowsVm.bicep' = {
   name: 'vm1Deployment-${datestring}'
   scope: rg
   params: {
@@ -34,7 +34,7 @@ module vm1 '../../modules/WindowsVm.bicep' = {
 
 // Third: Bastion Host
 // -------------------
-module bastion '../../modules/BastionHost.bicep' = {
+module bastion '../../templates/bastionHost.bicep' = {
   name: 'bastionDeployment-${datestring}'
   scope: rg
   params: {

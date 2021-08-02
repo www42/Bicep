@@ -10,7 +10,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 }
 
 // Key Vault
-module kv '../../modules/KeyVault.bicep' = {
+module kv '../../templates/keyVault.bicep' = {
   scope: rg
   name: 'kvDeployment-${datestring}'
   params: {

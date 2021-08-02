@@ -1,12 +1,13 @@
 # --- Scenario ---------------------------------
 scenario='WindowsVmRdp'
+cd scenarios/$scenario
 file="main.bicep"
 
-rgName='AFT-RG'
-location='westeurope'
-
 # --- Subscription deployment ------------------
+rgName='Demo-RG'
+location='westeurope'
 deploymentName="Scenario-$scenario"
+
 datestring=$(date +"%Y-%m-%d-%H-%M-%S")
 az deployment sub create \
     --name $deploymentName \
