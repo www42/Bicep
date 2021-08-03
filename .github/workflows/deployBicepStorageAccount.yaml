@@ -6,7 +6,7 @@ jobs:
     name: Create Storage Account
     runs-on: ubuntu-latest
     env:
-      region: westeurope
+      region: westeurope 
       resourceGroupName: rg-demo
       storageAccountNamePrefix: storage
 
