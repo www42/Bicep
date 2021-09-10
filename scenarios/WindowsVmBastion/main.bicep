@@ -27,8 +27,8 @@ module vm1 '../../templates/windowsVm.bicep' = {
     name: 'VM1'
     size: 'Standard_DS2_v2'
     subnetId: vnet.outputs.serverSubnetId
-    dscScript:    'config42.ps1'
-    customScript: 'script4.ps1'
+    dscScript:    'config32.ps1'
+    customScript: 'script32.ps1'
   }
 }
 
