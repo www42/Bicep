@@ -1,0 +1,54 @@
+# --- Scenario ---------------------------------
+scenario='Hub-and-Spoke'
+file='main.bicep'
+rgName='Network-RG'
+location='westeurope'
+
+# --- Subscription deployment ------------------
+deploymentName="Scenario-$scenario"
+
+az deployment sub create \
+    --name $deploymentName \
+    --template-file $file \
+    --location $location \
+    --parameters rgName=$rgName
+
+# TODO
+#   NVA Nic enable ip forwarding
+
+az deployment sub list \
+    --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp,duration:properties.duration}, &timestamp))" --output table
+
+
+# --- Tabula rasa resource group ---------------
+az deployment group create --name 'tabulaRasa' --resource-group $rgName --mode Complete --template-uri "https://raw.githubusercontent.com/www42/arm/master/templates/empty.json" --no-wait
+az deployment group list --resource-group $rgName --query "reverse(sort_by([].{Name:name,provisioningState:properties.provisioningState,timestamp:properties.timestamp}, &timestamp))" --output table
+az resource list --resource-group $rgName --query "sort_by([].{name:name,Type:type,location:location},&Type)" --output table
+
+# --- Delete resource group --------------------
+az group delete --resource-group $rgName --yes --no-wait
+
+# --- Create resource group --------------------
+az group create --location $location --name $rgName
+az group list -o table
+
+
+# --- Login ------------------------------------
+
+# MSDN-Plattformen  Paul@az.training
+# Subscription ID:  ffcb38a5-8428-40c4-98b7-77013eac7ec5
+# Tenant ID:        819ebf55-0973-4703-b006-581a48f25961
+
+# Azure Pass        Paul@adatum5925.onmicrosoft.com
+# Subscription ID:  d96537c2-d10f-4d9a-b8a1-c6c92e3ca256
+# Tenant ID:        75f02901-7e18-4dda-b95d-a3444bfe332b
+
+az logout
+az login
+
+az account list --query "[].{name:name,isDefault:isDefault,state:state,subscriptionId:id,user:user.name,tenantId:tenantId}" --output table
+
+subscriptionId='6d8a949f-78ab-45f4-909a-1a97c83b5735'
+az account set --subscription $subscriptionId
+
+az account show
