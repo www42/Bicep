@@ -33,4 +33,8 @@ module hubAndSpokeDeploy 'HubAndSpoke.bicep' = {
 // TO DO
 // -------
 //  NVA: Nic enable IP forwarding
+//  NVA: Configure and start Service 'Routing and RAS'
+//  Windows Firewall:
+//      NVA: FW ist enabled (Private profile). Servermanager behauptet: FW ist off, stimmt aber nicht. Keine Regel für ICMP, d.h. kann nicht angepingt werden.
+//      DC1: FW ist enabled (Private profile). Es gibt eine Regel für ICMP (über Domain Controller). D.h. kann angepingt werden.
 //  Table1: do not associate with any sbnet
