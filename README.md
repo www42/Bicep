@@ -2,7 +2,6 @@
 [Bicep documentation]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep
 [ARM template documentation]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates
 [Terraform]: https://www.terraform.io
-[MS Learn]: https://docs.microsoft.com/en-us/learn/modules/deploy-azure-resources-by-using-bicep-templates
 
 
 ## Scenarios
@@ -25,15 +24,23 @@
 
 <img src="img/bicep-to-json.png" alt="Bicep to json" width="400"/>
 
+<br>
+<br>
 
 ### How to learn Bicep?
 
 * [Project Bicep on GitHub][Project Bicep on GitHub]
 
-* [Bicep documentation][Bicep documentation]
+* [Bicep documentation landing page][Bicep documentation]
 
-* [ARM template documentation][ARM template documentation]
+* [Microsoft Learning Path *Fundamentals of Bicep*  (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/fundamentals-bicep/)
 
-* [Build your first Bicep template - Module at Microsoft Learn][MS Learn]
+* [Microsoft Learning Path *Intermediate Bicep* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/intermediate-bicep/)
+
+* [Microsoft Learning Path *Advanced Bicep* (3 Modules)](https://docs.microsoft.com/en-gb/learn/paths/advanced-bicep/)
+
+* [Microsoft Learning Path *Deploy Azure resources by using Bicep and Azure Pipelines* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-azure-pipelines/)
+
+* [Microsoft Learning Path *Deploy Azure resources by using Bicep and GitHub Actions* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-github-actions/)
 
 <img src="img/bicep-logo-256.png" alt="Bicep logo" width="100"/>
