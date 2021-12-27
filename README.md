@@ -33,14 +33,16 @@
 
 * [Bicep documentation landing page][Bicep documentation]
 
-* [Microsoft Learning Path *Fundamentals of Bicep*  (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/fundamentals-bicep/)
+* Microsoft Learn
 
-* [Microsoft Learning Path *Intermediate Bicep* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/intermediate-bicep/)
+  * [Learning Path *Fundamentals of Bicep*  (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/fundamentals-bicep/)
 
-* [Microsoft Learning Path *Advanced Bicep* (3 Modules)](https://docs.microsoft.com/en-gb/learn/paths/advanced-bicep/)
+  * [Learning Path *Intermediate Bicep* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/intermediate-bicep/)
 
-* [Microsoft Learning Path *Deploy Azure resources by using Bicep and Azure Pipelines* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-azure-pipelines/)
+  * [Learning Path *Advanced Bicep* (3 Modules)](https://docs.microsoft.com/en-gb/learn/paths/advanced-bicep/)
 
-* [Microsoft Learning Path *Deploy Azure resources by using Bicep and GitHub Actions* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-github-actions/)
+  * [Learning Path *Deploy Azure resources by using Bicep and Azure Pipelines* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-azure-pipelines/)
+
+  * [Learning Path *Deploy Azure resources by using Bicep and GitHub Actions* (5 Modules)](https://docs.microsoft.com/en-gb/learn/paths/bicep-github-actions/)
 
 <img src="img/bicep-logo-256.png" alt="Bicep logo" width="100"/>
