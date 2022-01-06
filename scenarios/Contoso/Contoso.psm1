@@ -57,7 +57,7 @@ function Remove-StringDiacritic {
         }
     }
 }
-function Import-ContosoAzureADUsers {
+function Import-ContosoAzureADUser {
 <#
 .SYNOPSIS
     Short description
@@ -133,7 +133,7 @@ function Import-ContosoAzureADUsers {
         }
     }
 }
-function Remove-ContosoImportedAzureADUsers {
+function Remove-ContosoImportedAzureADUser {
 
 <#
     .SYNOPSIS
