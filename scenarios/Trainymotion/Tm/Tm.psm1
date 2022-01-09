@@ -135,7 +135,7 @@ function Remove-TmImportedAzureADUser {
             Write-Warning "User does not exist $UserPrincipalName"
         }
         catch {
-            Write-Warning "An error occoured."
+            Write-Warning "An error occured."
         }
     }
 }
@@ -180,4 +180,38 @@ function Remove-TmImportedAzureADGroup {
             Write-Warning "Group does not exist $DisplayName"
         }
     }
+}
+function Add-TmAzureADGroupMember {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]
+        $MemberName,
+        [Parameter(Mandatory=$true)]
+        [string]
+        $GroupName
+        )
+    
+    $Group = Get-AzureADGroup -Filter "DisplayName eq '$GroupName'"
+    if (!($Group)) {
+        Write-Warning "Cannot add $MemberName  to  $GroupName. Group does not exist."
+        return
+    }
+
+    $Member = Get-AzureADUser -Filter "DisplayName eq '$MemberName'"
+    if ((!$Member)) {
+        $Member = Get-AzureADGroup -Filter "DisplayName eq '$MemberName'"
+    }
+
+    try {
+        Write-Verbose "--- foo ---------------"
+        $foo = $Member.ObjectId
+        Write-Verbose "$foo"
+        Write-Verbose "--- bar ---------------"
+        Write-Verbose "Adding  $MemberName  to group  $GroupName"
+        Add-AzADGroupMember -MemberObjectId $Member.ObjectId -TargetGroupObjectId $Group.ObjectId -ErrorAction Stop
+    }
+    catch {
+        Write-Warning "An error occured. (Already member?)"
+    }    
 }
