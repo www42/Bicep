@@ -57,34 +57,12 @@ function Remove-StringDiacritic {
         }
     }
 }
-function Import-ContosoAzureADUser {
-<#
-.SYNOPSIS
-    Short description
-.DESCRIPTION
-    Long description
-.EXAMPLE
-    Example of how to use this cmdlet
-.EXAMPLE
-    Another example of how to use this cmdlet
-.INPUTS
-    Inputs to this cmdlet (if any)
-.OUTPUTS
-    Output from this cmdlet (if any)
-.NOTES
-    General notes
-.COMPONENT
-    The component this cmdlet belongs to
-.ROLE
-    The role this cmdlet belongs to
-.FUNCTIONALITY
-    The functionality that best describes this cmdlet
-#>
+function Import-TmAzureADUser {
     [CmdletBinding()]        
-    Param (
+    param (
         [Parameter(Mandatory=$false)]
         [string]
-        $Path = "$PSScriptRoot/ContosoAzureADUsers.csv"
+        $Path = "$PSScriptRoot/TmAzureADUsers.csv"
     )
     $Users = Import-Csv -Path $Path
     $DomainName = ((Get-AzureAdTenantDetail).VerifiedDomains)[0].Name
@@ -129,39 +107,16 @@ function Import-ContosoAzureADUser {
             -AccountEnabled $true
         }
         else {
-            Write-Host "User exists $UserPrincipalName"
+            Write-Warning "User exists $UserPrincipalName"
         }
     }
 }
-function Remove-ContosoImportedAzureADUser {
-
-<#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        Example of how to use this cmdlet
-    .EXAMPLE
-        Another example of how to use this cmdlet
-    .INPUTS
-        Inputs to this cmdlet (if any)
-    .OUTPUTS
-        Output from this cmdlet (if any)
-    .NOTES
-        General notes
-    .COMPONENT
-        The component this cmdlet belongs to
-    .ROLE
-        The role this cmdlet belongs to
-    .FUNCTIONALITY
-        The functionality that best describes this cmdlet
-#>
+function Remove-TmImportedAzureADUser {
     [CmdletBinding()]    
-    Param (
+    param (
         [Parameter(Mandatory=$false)]
         [string]
-        $Path = "$PSScriptRoot/ContosoAzureADUsers.csv"
+        $Path = "$PSScriptRoot/TmAzureADUsers.csv"
     )
     $Users = Import-Csv -Path $Path
     $DomainName = ((Get-AzureAdTenantDetail).VerifiedDomains)[0].Name
@@ -177,10 +132,52 @@ function Remove-ContosoImportedAzureADUser {
             Write-Output "User $UserPrincipalName removed."
         }
         catch [Microsoft.Open.AzureAD16.Client.ApiException] {
-            Write-Warning "User $UserPrincipalName does not exist."
+            Write-Warning "User does not exist $UserPrincipalName"
         }
         catch {
             Write-Warning "An error occoured."
+        }
+    }
+}
+function Import-TmAzureADGroup {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$false)]
+        [string]
+        $Path = "$PSScriptRoot/TmAzureADGroups.csv"
+    )
+    $Groups = Import-Csv -Path $Path
+    foreach ($Group in $Groups) {
+        $DisplayName  = $Group.DisplayName
+        $Description  = $Group.Description
+        $MailNickName = $Group.MailNickName
+
+        if (!(Get-AzureADGroup -Filter "DisplayName eq '$DisplayName'")) {
+            Write-Verbose "Creating group $DisplayName"
+            New-AzureADGroup -DisplayName $DisplayName -Description $Description -MailEnabled:$false -MailNickName $MailNickName -SecurityEnabled:$true            
+        }
+        else {
+            Write-Warning "Group exists $DisplayName"
+        }        
+    }
+}
+function Remove-TmImportedAzureADGroup {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$false)]
+        [string]
+        $Path = "$PSScriptRoot/TmAzureADGroups.csv"
+    )
+    $Groups = Import-Csv -Path $Path
+    foreach ($Group in $Groups) {
+        $DisplayName  = $Group.DisplayName
+        try {
+            Write-Verbose "Removing group $DisplayName"
+            $ADGroup = Get-AzureADGroup -Filter "DisplayName eq '$DisplayName'"
+            Remove-AzureADGroup -ObjectId $ADGroup.ObjectId
+        }
+        catch {
+            Write-Warning "Group does not exist $DisplayName"
         }
     }
 }

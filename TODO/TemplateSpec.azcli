@@ -1,0 +1,42 @@
+# Template Spec (TS)
+
+# create TS
+az ts create \
+  --name ToyCosmosDBAccount \
+  --location westus \
+  --display-name "Cosmos DB account" \
+  --description "This template spec creates a Cosmos DB account that meets our company's requirements." \
+  --version 1.0 \
+  --template-file main.bicep
+
+# deploy TS
+templateSpecVersionResourceId=$(az ts show \
+  --name ToyCosmosDBAccount --version 1.0 --query id --output tsv)
+echo $templateSpecVersionResourceId
+az deployment group create --template-spec $templateSpecVersionResourceId
+
+# update TS
+az ts create \
+  --name ToyCosmosDBAccount \
+  --version 2.0 \
+  --version-description "Adds Cosmos DB role-based access control." \
+  --template-file main.bicep
+
+az ts list
+az ts show --name ToyCosmosDBAccount --version 2.0
+
+# deploy TS ver 2.0
+templateSpecVersionResourceId=$(az ts show \
+  --name ToyCosmosDBAccount \
+  --version 2.0 \
+  --query id \
+  --output tsv)
+
+echo $templateSpecVersionResourceId
+
+userObjectId=$(az ad signed-in-user show --query objectId --output tsv)
+echo $userObjectId
+
+az deployment group create \
+  --template-spec $templateSpecVersionResourceId \
+  --parameters roleAssignmentPrincipalId=$userObjectId
