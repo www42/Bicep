@@ -55,7 +55,7 @@ resource aaJob 'Microsoft.Automation/automationAccounts/compilationjobs@2020-01-
   ]
   properties: {
     configuration: {
-      name: '${aaConfigurationName}'
+      name: aaConfigurationName
     }
     parameters: {
       DomainName: 'adatum.com'
