@@ -16,19 +16,19 @@ module automationDeploy 'AutomationAccount.bicep' = {
     
     // Attention! Automation account jobs are not idempotent! This means 
     //    deployAaJob: true     only for the first time, in later deployment set to 'false'
-    deployAaJob: true
+    // deployAaJob: false
   }
 }
 
 // Next: Hub and Spoke 
-module hubAndSpokeDeploy 'HubAndSpoke.bicep' = {
-  name: 'hubAndSpokeDeploy'
-  scope: rg
-  params: {
-    aaId:             automationDeploy.outputs.automationAccountId
-    aaConfiguration: 'ADDomain_NewForest.localhost' 
-  }
-}
+// module hubAndSpokeDeploy 'HubAndSpoke.bicep' = {
+//   name: 'hubAndSpokeDeploy'
+//   scope: rg
+//   params: {
+//     aaId:             automationDeploy.outputs.automationAccountId
+//     aaConfiguration: 'ADDomain_NewForest.localhost' 
+//   }
+// }
 
 // TO DO
 // -------

@@ -1,5 +1,5 @@
 # --- Scenario ---------------------------------
-scenario='Hub-and-Spoke'
+scenario='Hub-and-Spoke-all-in-one-template'
 file='main.bicep'
 rgName='Network-RG'
 location='westeurope'
